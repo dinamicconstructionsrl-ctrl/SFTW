@@ -153,50 +153,6 @@
         window.rA = _p1 + _p2 + _p3;
         window.XB = "";
 
-<script>
-  // blocca tasto destro
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-  });
-
-  // blocca scorciatoie DevTools
-  document.addEventListener('keydown', (e) => {
-    // F12
-    if (e.key === 'F12') {
-      e.preventDefault();
-      return false;
-    }
-
-    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-    if (
-      e.ctrlKey &&
-      e.shiftKey &&
-      ['I', 'J', 'C'].includes(e.key.toUpperCase())
-    ) {
-      e.preventDefault();
-      return false;
-    }
-
-    // Ctrl+U (view source)
-    if (e.ctrlKey && e.key.toUpperCase() === 'U') {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-  // rileva DevTools aperti (opzionale)
-  setInterval(() => {
-    const devtoolsOpen =
-      window.outerWidth - window.innerWidth > 160 ||
-      window.outerHeight - window.innerHeight > 160;
-
-    if (devtoolsOpen) {
-      document.body.innerHTML = '';
-      window.location.href = 'about:blank';
-    }
-  }, 1000);
-</script>
-        
         /* ===== FIX ENCODING ≈ ===== */
 
        <script>
