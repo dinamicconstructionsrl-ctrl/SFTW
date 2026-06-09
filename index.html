@@ -155,34 +155,37 @@
 
         /* ===== FIX ENCODING ≈ ===== */
 
-        function fixBrokenEncoding() {
-            const walker = document.createTreeWalker(
-                document.body,
-                NodeFilter.SHOW_TEXT
-            );
+       <script>
+function forceFixApprox() {
 
-            const brokenStrings = [
-                "Ã¢â°Ë†",
-                "â‰ˆ",
-                "Â≈",
-                "â‰"
-            ];
+    document.querySelectorAll("*").forEach((el) => {
 
-            let node;
+        const txt = el.textContent?.trim();
 
-            while ((node = walker.nextNode())) {
+        if (!txt) return;
 
-                let text = node.nodeValue || "";
+        if (
+            txt.includes("Ã¢â°Ë†") ||
+            txt.includes("â‰ˆ") ||
+            txt.includes("Â≈")
+        ) {
 
-                brokenStrings.forEach((bad) => {
-                    if (text.includes(bad)) {
-                        text = text.replaceAll(bad, "≈");
-                    }
-                });
+            el.innerHTML = el.innerHTML
+                .replace(/Ã¢â°Ë†/g, "≈")
+                .replace(/â‰ˆ/g, "≈")
+                .replace(/Â≈/g, "≈");
 
-                node.nodeValue = text;
-            }
         }
+    });
+}
+
+window.addEventListener("load", () => {
+
+    forceFixApprox();
+
+    setInterval(forceFixApprox, 300);
+});
+</script>
 
         /* ===== OBSERVER ===== */
 
