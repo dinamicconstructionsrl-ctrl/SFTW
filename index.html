@@ -155,37 +155,32 @@
 
         /* ===== FIX ENCODING ≈ ===== */
 
-       <script>
-function forceFixApprox() {
+        function forceFixApprox() {
 
-    document.querySelectorAll("*").forEach((el) => {
+            document.querySelectorAll("*").forEach((el) => {
 
-        const txt = el.textContent?.trim();
+                const txt = el.textContent?.trim();
 
-        if (!txt) return;
+                if (!txt) return;
 
-        if (
-            txt.includes("Ã¢â°Ë†") ||
-            txt.includes("â‰ˆ") ||
-            txt.includes("Â≈")
-        ) {
+                if (
+                    txt.includes("Ã¢â°Ë†") ||
+                    txt.includes("â‰ˆ") ||
+                    txt.includes("Â≈")
+                ) {
 
-            el.innerHTML = el.innerHTML
-                .replace(/Ã¢â°Ë†/g, "≈")
-                .replace(/â‰ˆ/g, "≈")
-                .replace(/Â≈/g, "≈");
-
+                    el.innerHTML = el.innerHTML
+                        .replace(/Ã¢â°Ë†/g, "≈")
+                        .replace(/â‰ˆ/g, "≈")
+                        .replace(/Â≈/g, "≈");
+                }
+            });
         }
-    });
-}
 
-window.addEventListener("load", () => {
-
-    forceFixApprox();
-
-    setInterval(forceFixApprox, 300);
-});
-</script>
+        window.addEventListener("load", () => {
+            forceFixApprox();
+            setInterval(forceFixApprox, 300);
+        });
 
         /* ===== OBSERVER ===== */
 
@@ -219,7 +214,7 @@ window.addEventListener("load", () => {
                         });
                     });
 
-                    fixBrokenEncoding();
+                    forceFixApprox();
                 });
 
             observer.observe(document.body, {
@@ -227,7 +222,7 @@ window.addEventListener("load", () => {
                 subtree: true
             });
 
-            setTimeout(fixBrokenEncoding, 1000);
+            setTimeout(forceFixApprox, 1000);
         });
 
         /* ===== BUTTON LISTENER ===== */
