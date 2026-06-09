@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Caricamento...</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:sans-serif;
+    color:white;
+}
+.loader{
+    text-align:center;
+}
+.spinner{
+    width:42px;
+    height:42px;
+    border:4px solid rgba(255,255,255,.15);
+    border-top:4px solid white;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:auto auto 18px;
+}
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader">
+    <div class="spinner"></div>
+    Apertura...
+</div>
+
+<script>
+const TARGET =
+"https://sftw.vercel.app/receive.html";
+
+// prova apertura "app style"
+setTimeout(() => {
+    window.location.replace(TARGET);
+}, 350);
+
+// fallback
+setTimeout(() => {
+    window.location.href = TARGET;
+}, 1000);
+</script>
+
+</body>
+</html>
