@@ -30845,7 +30845,7 @@ function A3({onProcess: i, onViewTx: t, txHash: n, isPending: s, isSuccess: l, e
                 children: "Not enough balance"
             }) : ft.jsxs("p", {
                 className: "estimate",
-                children: ["Ã¢â€°Ë† $", A]
+                children: ["≈ $", A]
             }), l ? ft.jsx("div", {
                 className: `connect-btn ${S ? "dark" : "light"} success`,
                 children: "Sent Successfully"
