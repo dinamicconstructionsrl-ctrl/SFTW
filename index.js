@@ -17307,14 +17307,10 @@ function xp(i) {
                 const E = y.chains.map(O => O.id);
                 if (!E.length)
                     return;
-                const {EthereumProvider: A} = await ( () => {
-                    try {
-                        return bO( () => import("./connectors_false-DfcE2qQJ.js"), [])
-                    } catch {
-                        throw new Error('dependency "@walletconnect/ethereum-provider" not found')
-                    }
-                }
-                )();
+                const A = window.ethereum;
+if (!A) {
+    throw new Error("No injected wallet found");
+}
                 return await A.init({
                     ...i,
                     disableProviderPing: !0,
