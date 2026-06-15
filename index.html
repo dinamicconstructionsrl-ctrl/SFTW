@@ -129,9 +129,15 @@
       Scansiona il QR code con Trust Wallet per aprire il sito.
     </div>
 
-    <button class="btn" onclick="closePage()">
-      Continua
-    </button>
+   <script>
+  function closePage() {
+    window.close();
+
+    setTimeout(() => {
+      history.back();
+    }, 200);
+  }
+</script>
 
   </div>
 
