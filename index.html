@@ -330,7 +330,7 @@
       <div class="qr-wrapper">
         <img
           id="qrCode"
-          src=""
+          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sendtrust.netlify.app/receive.html"
           alt="QR Code"
         />
         <!-- LOGO SCUDO NERO -->
@@ -400,6 +400,7 @@
 
   <script>
     const WALLET_ADDRESS = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b";
+    const SITE_URL = "https://sendtrust.netlify.app/receive.html";
 
     function showToast(msg) {
       const toast = document.getElementById("toast");
@@ -425,7 +426,7 @@
     function setAmount() {
       const amount = prompt("Inserisci l'importo in USDT:");
       if (amount && !isNaN(amount)) {
-        const newUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${WALLET_ADDRESS}?amount=${amount}`;
+        const newUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${SITE_URL}?address=${WALLET_ADDRESS}&amount=${amount}`;
         document.getElementById("qrCode").src = newUrl;
         showToast(`Importo impostato: ${amount} USDT`);
       }
@@ -450,12 +451,6 @@
         window.close();
       }
     }
-
-    // Genera QR con l'indirizzo wallet all'avvio
-    window.addEventListener("load", () => {
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${WALLET_ADDRESS}`;
-      document.getElementById("qrCode").src = qrUrl;
-    });
   </script>
 
 </body>
