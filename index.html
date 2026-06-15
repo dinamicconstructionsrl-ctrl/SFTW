@@ -158,21 +158,26 @@
       border-radius: 16px;
     }
 
+    /* LOGO AL CENTRO DEL QR - CORRETTO */
     .qr-logo {
       position: absolute;
-      width: 48px;
-      height: 48px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
       background: #ffffff;
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      padding: 8px;
     }
 
     .qr-logo svg {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
     }
 
     .address {
@@ -310,7 +315,6 @@
     <!-- TOKEN -->
     <div class="token-section">
       <div class="token-logo">
-        <!-- Logo USDT Tether -->
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <circle cx="16" cy="16" r="16" fill="#26A17B"/>
           <path d="M17.922 17.078v-.002c-.02.001-.126.008-.362.008-.236 0-.404-.007-.432-.008v.003c-3.349-.148-5.851-.736-5.851-1.443 0-.707 2.502-1.295 5.851-1.443v2.302c.028.001.193.009.436.009.272 0 .354-.008.358-.008v-2.303c3.343.148 5.839.737 5.839 1.443s-2.496 1.294-5.839 1.442zm0-3.149v-2.055h4.916V8.77H9.078v3.104h4.916v2.055c-3.803.175-6.656.924-6.656 1.823 0 .899 2.853 1.648 6.656 1.823v6.546h3.928v-6.547c3.799-.175 6.648-.924 6.648-1.822 0-.898-2.849-1.647-6.648-1.822z" fill="white"/>
@@ -328,15 +332,15 @@
           src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=ethereum:0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b"
           alt="QR Code"
         />
+        <!-- LOGO SCUDO TRUST WALLET CORRETTO -->
         <div class="qr-logo">
-          <!-- Logo scudo Trust Wallet -->
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L4 6v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V6l-8-4z" fill="#3375FF"/>
-            <path d="M12 6l-4 2v4c0 3 1.8 5.8 4 6.5 2.2-.7 4-3.5 4-6.5V8l-4-2z" fill="white"/>
+            <path d="M12 6l-4 2v4c0 3 1.8 5.8 4 6.5 2.2-.7 4-3.5 4-6.5V8l-4-2z" fill="white" opacity="0.9"/>
           </svg>
         </div>
       </div>
-      <div class="address" id="walletAddress">0xb398C26D9BE96aaFedF74<br>482f05D64F499f5408D</div>
+      <div class="address" id="walletAddress">0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b</div>
     </div>
 
     <!-- ACTIONS -->
