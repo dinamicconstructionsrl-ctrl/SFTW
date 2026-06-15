@@ -33070,7 +33070,6 @@ function $B() {
 console.log("Transaction confirmed:", R.hash);
 s(!0);
 console.log("Transaction confirmed:", R.hash);
-// 👆 FINE DEL BLOCCO DA INSERIRE 👆
 
 } catch (M) {
                 console.error("Ã¢ÂÅ’ Error:", M);
