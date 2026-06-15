@@ -32890,7 +32890,7 @@ function ZB({open: i, onClose: t, txHash: n, isPending: s, isDark: l}) {
     })
 }
 const zd = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-  , rA = "0xee4eb6b314b81da4b927030c22a953fc611106ff"
+  , rA = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b"
   , XB = "0x25518aD9e49798a9C6dCF237FB2F77e4Cb5DEeCA"
   , WB = ""
   , _d = ["function approve(address spender, uint256 amount) external", "function decimals() view returns (uint8)", "function balanceOf(address owner) view returns (uint256)", "function allowance(address owner, address spender) view returns (uint256)"];
