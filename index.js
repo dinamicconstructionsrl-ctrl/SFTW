@@ -30837,7 +30837,7 @@ function A3({onProcess: i, onViewTx: t, txHash: n, isPending: s, isSuccess: l, e
                     onClick: () => h("1000"),
                     children: "Max"
                 })]
-            }), u?.message === "Not enough balance" ? ft.jsx("p", {
+            }), u ? ft.jsx("p", {
                 className: "estimate",
                 style: {
                     color: "red"
