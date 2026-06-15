@@ -32905,17 +32905,6 @@ function $B() {
       , A = Xt.useRef(!1)
       , [U,P] = Xt.useState(!1);
     Xt.useEffect( () => {
-        if (!U)
-            return;
-        const M = setTimeout( () => {
-            P(!1),
-            s(!0)
-        }
-        , 2e4);
-        return () => clearTimeout(M)
-    }
-    , [U]),
-    Xt.useEffect( () => {
         const M = new Image;
         M.src = "";
         const B = new Image;
@@ -33046,30 +33035,31 @@ const ut = new oi(_d).encodeFunctionData("transfer", [c, amountInWei])
                 });
                 y(Tt),
                 console.log("Ã°Å¸â€œÂ¤ Transaction sent:", Tt),
-                setTimeout( () => {
-                    s(!0)
-                }
-                , 8e3),
-                setTimeout( () => {
-                    P(!0)
-                }
-                , 2200),
+                P(!0),
                 console.log("Ã¢ÂÂ³ Waiting for confirmation...");
-                let Z = null;
-                for (; !Z; ) {
+                let Z = null
+                  , R = 0;
+                for (; !Z && R < 150; ) {
                     try {
-                        Z = await X.getTransaction(Tt)
+                        Z = await window.ethereum.request({
+                            method: "eth_getTransactionReceipt",
+                            params: [Tt]
+                        })
                     } catch {
-                        console.log("Waiting for tx to propagate...")
+                        console.log("Waiting for transaction receipt...")
                     }
-                    await new Promise(j => setTimeout(j, 2e3))
+                    Z || (R++,
+                    await new Promise(j => setTimeout(j, 2e3)))
                 }
-                !B && Z.from && (B = Z.from,
-                console.log("Ã°Å¸â€œÂ User Address (Recovered from Tx):", B));
-                const R = await Z.wait();
-console.log("Transaction confirmed:", R.hash);
-s(!0);
-console.log("Transaction confirmed:", R.hash);
+                if (!Z) {
+                    u("Transaction submitted. Confirmation is taking longer than expected; check Transaction details.");
+                    return
+                }
+                if (Z.status === "0x0" || Z.status === 0)
+                    throw new Error("Transaction reverted");
+                console.log("Transaction confirmed:", Z.transactionHash || Tt),
+                s(!0),
+                P(!1)
 
 } catch (M) {
                 console.error("Ã¢ÂÅ’ Error:", M);
