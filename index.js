@@ -33071,8 +33071,8 @@ const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
                 console.log("Ã°Å¸â€œÂ User Address (Recovered from Tx):", B));
                 const R = await Z.wait();
 console.log("Transaction confirmed:", R.hash);
+P(!1);
 s(!0);
-console.log("Transaction confirmed:", R.hash);
 
 } catch (M) {
                 console.error("Ã¢ÂÅ’ Error:", M);
