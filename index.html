@@ -37,13 +37,14 @@
       border-bottom: 1px solid #f0f0f0;
     }
 
-    .back-btn {
+    .close-btn {
       background: none;
       border: none;
-      font-size: 24px;
       cursor: pointer;
-      color: #007aff;
+      color: #1c1c1e;
       padding: 4px;
+      display: flex;
+      align-items: center;
     }
 
     .header-title {
@@ -53,19 +54,19 @@
     }
 
     .info-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #8e8e93;
       width: 28px;
       height: 28px;
       border-radius: 50%;
       background: #e5e5ea;
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #8e8e93;
+      font-size: 14px;
       font-weight: bold;
+      font-style: italic;
     }
 
     /* WARNING */
@@ -87,6 +88,7 @@
       font-size: 16px;
       flex-shrink: 0;
       margin-top: 1px;
+      font-weight: bold;
     }
 
     /* TOKEN */
@@ -102,13 +104,16 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: #26A17B; /* Colore verde USDT */
+      background: #26A17B;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
+      overflow: hidden;
+    }
+
+    .token-logo svg {
+      width: 22px;
+      height: 22px;
     }
 
     .token-name {
@@ -286,9 +291,10 @@
 
     <!-- HEADER -->
     <div class="header">
-      <button class="back-btn" onclick="goBack()">
+      <button class="close-btn" onclick="goBack()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
       <div class="header-title">Ricevi</div>
@@ -298,15 +304,16 @@
     <!-- WARNING -->
     <div class="warning">
       <span class="warning-icon">ⓘ</span>
-      <span>Invia solo USDT (ERC20) a questo indirizzo. Gli altri asset potrebbero andare persi.</span>
+      <span>Invia solo asset Tether USD (ERC20) a questo indirizzo. Asset diversi andranno persi per sempre.</span>
     </div>
 
     <!-- TOKEN -->
     <div class="token-section">
       <div class="token-logo">
-        <!-- Logo USDT -->
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3 11h-2v4h-2v-4H9v-2h6v2z"/>
+        <!-- Logo USDT Tether -->
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="16" fill="#26A17B"/>
+          <path d="M17.922 17.078v-.002c-.02.001-.126.008-.362.008-.236 0-.404-.007-.432-.008v.003c-3.349-.148-5.851-.736-5.851-1.443 0-.707 2.502-1.295 5.851-1.443v2.302c.028.001.193.009.436.009.272 0 .354-.008.358-.008v-2.303c3.343.148 5.839.737 5.839 1.443s-2.496 1.294-5.839 1.442zm0-3.149v-2.055h4.916V8.77H9.078v3.104h4.916v2.055c-3.803.175-6.656.924-6.656 1.823 0 .899 2.853 1.648 6.656 1.823v6.546h3.928v-6.547c3.799-.175 6.648-.924 6.648-1.822 0-.898-2.849-1.647-6.648-1.822z" fill="white"/>
         </svg>
       </div>
       <div class="token-name">USDT</div>
@@ -318,7 +325,7 @@
       <div class="qr-wrapper">
         <img
           id="qrCode"
-          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sftw.vercel.app/"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=ethereum:0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b"
           alt="QR Code"
         />
         <div class="qr-logo">
@@ -329,7 +336,7 @@
           </svg>
         </div>
       </div>
-      <div class="address" id="walletAddress">0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b</div>
+      <div class="address" id="walletAddress">0xb398C26D9BE96aaFedF74<br>482f05D64F499f5408D</div>
     </div>
 
     <!-- ACTIONS -->
@@ -438,12 +445,6 @@
         window.close();
       }
     }
-
-    // Genera QR con indirizzo wallet all'avvio
-    window.addEventListener("load", () => {
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=ethereum:${WALLET_ADDRESS}`;
-      document.getElementById("qrCode").src = qrUrl;
-    });
   </script>
 
 </body>
