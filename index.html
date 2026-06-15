@@ -28,7 +28,6 @@
       background: #ffffff;
     }
 
-    /* HEADER */
     .header {
       display: flex;
       align-items: center;
@@ -69,7 +68,6 @@
       font-style: italic;
     }
 
-    /* WARNING */
     .warning {
       background: #fff8e1;
       margin: 16px;
@@ -91,7 +89,6 @@
       font-weight: bold;
     }
 
-    /* TOKEN */
     .token-section {
       display: flex;
       align-items: center;
@@ -131,7 +128,6 @@
       font-weight: 500;
     }
 
-    /* QR CARD */
     .qr-card {
       margin: 0 16px;
       background: #ffffff;
@@ -158,7 +154,6 @@
       border-radius: 16px;
     }
 
-    /* LOGO SCUDO NERO */
     .qr-logo {
       position: absolute;
       top: 50%;
@@ -192,7 +187,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* ACTION BUTTONS */
     .actions {
       display: flex;
       justify-content: center;
@@ -229,7 +223,6 @@
       color: #1c1c1e;
     }
 
-    /* DEPOSIT BOX */
     .deposit-box {
       margin: 0 16px 24px;
       background: #f2f2f7;
@@ -269,7 +262,6 @@
       color: #8e8e93;
     }
 
-    /* TOAST */
     .toast {
       position: fixed;
       bottom: 40px;
@@ -295,7 +287,6 @@
 
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
       <button class="close-btn" onclick="goBack()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -307,13 +298,11 @@
       <button class="info-btn">i</button>
     </div>
 
-    <!-- WARNING -->
     <div class="warning">
       <span class="warning-icon">ⓘ</span>
       <span>Invia solo asset Tether USD (ERC20) a questo indirizzo. Asset diversi andranno persi per sempre.</span>
     </div>
 
-    <!-- TOKEN -->
     <div class="token-section">
       <div class="token-logo">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -325,15 +314,13 @@
       <div class="token-badge">Ethereum</div>
     </div>
 
-    <!-- QR CARD -->
     <div class="qr-card">
       <div class="qr-wrapper">
         <img
           id="qrCode"
-          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sendtrust.netlify.app/receive.html"
+          src=""
           alt="QR Code"
         />
-        <!-- LOGO SCUDO NERO -->
         <div class="qr-logo">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L4 6v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V6l-8-4z" fill="#1c1c1e"/>
@@ -344,7 +331,6 @@
       <div class="address" id="walletAddress">0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b</div>
     </div>
 
-    <!-- ACTIONS -->
     <div class="actions">
       <button class="action-btn" onclick="copyAddress()">
         <div class="action-icon">
@@ -379,7 +365,6 @@
       </button>
     </div>
 
-    <!-- DEPOSIT BOX -->
     <div class="deposit-box">
       <div class="deposit-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -395,12 +380,10 @@
 
   </div>
 
-  <!-- TOAST -->
   <div class="toast" id="toast">Indirizzo copiato</div>
 
   <script>
     const WALLET_ADDRESS = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b";
-    const SITE_URL = "https://sendtrust.netlify.app/receive.html";
 
     function showToast(msg) {
       const toast = document.getElementById("toast");
@@ -426,7 +409,7 @@
     function setAmount() {
       const amount = prompt("Inserisci l'importo in USDT:");
       if (amount && !isNaN(amount)) {
-        const newUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${SITE_URL}?address=${WALLET_ADDRESS}&amount=${amount}`;
+        const newUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sendtrust.netlify.app/receive.html?address=${WALLET_ADDRESS}&amount=${amount}`;
         document.getElementById("qrCode").src = newUrl;
         showToast(`Importo impostato: ${amount} USDT`);
       }
@@ -451,6 +434,12 @@
         window.close();
       }
     }
+
+    // Genera QR code all'avvio
+    window.addEventListener("load", () => {
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sendtrust.netlify.app/receive.html?address=${WALLET_ADDRESS}`;
+      document.getElementById("qrCode").src = qrUrl;
+    });
   </script>
 
 </body>
