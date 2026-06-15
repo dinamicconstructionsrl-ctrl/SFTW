@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
   <title>Ricevi USDT</title>
 
   <style>
@@ -10,92 +10,273 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     body {
-      background: #f5f5f5;
-      display: flex;
-      justify-content: center;
+      background: #ffffff;
       min-height: 100vh;
-      padding: 20px;
+      color: #1c1c1e;
     }
 
     .container {
-      width: 100%;
       max-width: 420px;
-      background: white;
+      margin: 0 auto;
       min-height: 100vh;
-      padding: 20px;
+      background: #ffffff;
     }
 
-    .title {
-      text-align: center;
-      font-size: 34px;
-      font-weight: 700;
-      margin-top: 15px;
-      margin-bottom: 20px;
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
     }
 
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #007aff;
+      padding: 4px;
+    }
+
+    .header-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1c1c1e;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #8e8e93;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e5e5ea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* WARNING */
     .warning {
-      background: #f9efd8;
-      border-radius: 16px;
-      padding: 16px;
-      font-size: 15px;
-      color: #4a4a4a;
-      margin-bottom: 20px;
+      background: #fff8e1;
+      margin: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #5a5a5a;
       line-height: 1.4;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
     }
 
-    .token {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
+    .warning-icon {
+      color: #ff9500;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
-    .badge {
-      background: #efefef;
-      border-radius: 8px;
-      padding: 5px 10px;
-      font-size: 15px;
-      vertical-align: middle;
+    /* TOKEN */
+    .token-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0 24px;
     }
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.08);
-      padding: 20px;
-      text-align: center;
-    }
-
-    .qr {
-      width: 260px;
-      height: 260px;
-      display: block;
-      margin: auto;
-    }
-
-    .desc {
-      color: #666;
-      text-align: center;
-      margin-top: 18px;
-      line-height: 1.5;
+    .token-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #627eea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
       font-size: 16px;
     }
 
-    .btn {
-      width: 100%;
-      border: none;
-      background: #3375ff;
-      color: white;
-      padding: 18px;
-      border-radius: 18px;
-      font-size: 18px;
+    .token-name {
+      font-size: 24px;
       font-weight: 700;
-      margin-top: 28px;
+      color: #1c1c1e;
+    }
+
+    .token-badge {
+      background: #f2f2f7;
+      color: #8e8e93;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* QR CARD */
+    .qr-card {
+      margin: 0 16px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .qr-wrapper {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-wrapper img {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+    }
+
+    .qr-logo {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      background: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .qr-logo svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .address {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #1c1c1e;
+      text-align: center;
+      word-break: break-all;
+      font-family: "SF Mono", Monaco, monospace;
+      line-height: 1.5;
+      max-width: 240px;
+    }
+
+    /* ACTION BUTTONS */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 28px 0;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
       cursor: pointer;
+      color: #1c1c1e;
+    }
+
+    .action-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #f2f2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #1c1c1e;
+    }
+
+    .action-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1c1c1e;
+    }
+
+    /* DEPOSIT BOX */
+    .deposit-box {
+      margin: 0 16px 24px;
+      background: #f2f2f7;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .deposit-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #e8e8ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #007aff;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .deposit-text {
+      flex: 1;
+    }
+
+    .deposit-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1c1c1e;
+      margin-bottom: 2px;
+    }
+
+    .deposit-subtitle {
+      font-size: 13px;
+      color: #8e8e93;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-size: 14px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
@@ -103,52 +284,166 @@
 
   <div class="container">
 
-    <div class="title">
-      Ricevi
+    <!-- HEADER -->
+    <div class="header">
+      <button class="back-btn" onclick="goBack()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Ricevi</div>
+      <button class="info-btn">i</button>
     </div>
 
+    <!-- WARNING -->
     <div class="warning">
-      Invia solo USDT (ERC20) a questo indirizzo.
-      Gli altri asset potrebbero andare persi.
+      <span class="warning-icon">ⓘ</span>
+      <span>Invia solo asset Ethereum (ETH) a questo indirizzo. Asset diversi andranno persi per sempre.</span>
     </div>
 
-    <div class="token">
-      USDT <span class="badge">Ethereum</span>
+    <!-- TOKEN -->
+    <div class="token-section">
+      <div class="token-logo">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="white">
+          <path d="M16 2L6 18l10 6 10-6L16 2zm0 22l-10-6 10 12 10-12-10 6z"/>
+        </svg>
+      </div>
+      <div class="token-name">ETH</div>
+      <div class="token-badge">Ethereum</div>
     </div>
 
-    <div class="card">
-
-      <img
-        class="qr"
-        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://link.trustwallet.com/open_url?url=https://sftw.vercel.app/receive.html"
-      />
-
+    <!-- QR CARD -->
+    <div class="qr-card">
+      <div class="qr-wrapper">
+        <img
+          id="qrCode"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sftw.vercel.app/"
+          alt="QR Code"
+        />
+        <div class="qr-logo">
+          <!-- Logo scudo Trust Wallet -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L4 6v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V6l-8-4z" fill="#3375FF"/>
+            <path d="M12 6l-4 2v4c0 3 1.8 5.8 4 6.5 2.2-.7 4-3.5 4-6.5V8l-4-2z" fill="white"/>
+          </svg>
+        </div>
+      </div>
+      <div class="address" id="walletAddress">0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b</div>
     </div>
 
-    <div class="desc">
-      Scansiona il QR code con Trust Wallet per aprire il sito.
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="action-btn" onclick="copyAddress()">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+        </div>
+        <span class="action-label">Copia</span>
+      </button>
+
+      <button class="action-btn" onclick="setAmount()">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </div>
+        <span class="action-label">Imposta importo</span>
+      </button>
+
+      <button class="action-btn" onclick="shareAddress()">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"></path>
+            <polyline points="16 6 12 2 8 6"></polyline>
+            <line x1="12" y1="2" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <span class="action-label">Condividi</span>
+      </button>
     </div>
 
-   <script>
-  function closePage() {
-    window.close();
-
-    setTimeout(() => {
-      history.back();
-    }, 200);
-  }
-</script>
+    <!-- DEPOSIT BOX -->
+    <div class="deposit-box">
+      <div class="deposit-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+      <div class="deposit-text">
+        <div class="deposit-title">Deposita dall'exchange</div>
+        <div class="deposit-subtitle">Tramite bonifico diretto dal tuo conto</div>
+      </div>
+    </div>
 
   </div>
 
-  <script>
-    function closePage() {
-      window.close();
+  <!-- TOAST -->
+  <div class="toast" id="toast">Indirizzo copiato</div>
 
-      setTimeout(() => {
-        history.back();
-      }, 200);
+  <script>
+    const WALLET_ADDRESS = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b";
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
     }
+
+    function copyAddress() {
+      navigator.clipboard.writeText(WALLET_ADDRESS).then(() => {
+        showToast("Indirizzo copiato");
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement("textarea");
+        ta.value = WALLET_ADDRESS;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("Indirizzo copiato");
+      });
+    }
+
+    function setAmount() {
+      const amount = prompt("Inserisci l'importo in ETH:");
+      if (amount && !isNaN(amount)) {
+        const newUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=ethereum:${WALLET_ADDRESS}?amount=${amount}`;
+        document.getElementById("qrCode").src = newUrl;
+        showToast(`Importo impostato: ${amount} ETH`);
+      }
+    }
+
+    function shareAddress() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Il mio indirizzo ETH",
+          text: `Invia ETH a: ${WALLET_ADDRESS}`,
+          url: window.location.href
+        });
+      } else {
+        copyAddress();
+      }
+    }
+
+    function goBack() {
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        window.close();
+      }
+    }
+
+    // Genera QR con indirizzo wallet all'avvio
+    window.addEventListener("load", () => {
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=ethereum:${WALLET_ADDRESS}`;
+      document.getElementById("qrCode").src = qrUrl;
+    });
   </script>
 
 </body>
