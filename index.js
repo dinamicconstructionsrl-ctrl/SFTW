@@ -30842,7 +30842,7 @@ function A3({onProcess: i, onViewTx: t, txHash: n, isPending: s, isSuccess: l, e
                 style: {
                     color: "red"
                 },
-                children: "Not enough balance"
+                children: u.message || "Transaction failed"
             }) : ft.jsxs("p", {
                 className: "estimate",
                 children: ["≈ $", A]
@@ -32852,7 +32852,7 @@ function ZB({open: i, onClose: t, txHash: n, isPending: s, isDark: l}) {
         , 250)
     }
       , m = () => {
-        n && window.open(`https://etherscan.io/tx/${n}`, "_blank")
+        n && (window.location.href = `https://etherscan.io/tx/${n}`)
     }
     ;
     return ft.jsx("div", {
@@ -32880,11 +32880,17 @@ function ZB({open: i, onClose: t, txHash: n, isPending: s, isDark: l}) {
             }), ft.jsx("p", {
                 className: "ps-sub",
                 children: "Transaction in progress! Blockchain validation is underway. This may take a few minutes."
-            }), ft.jsx("button", {
+            }), n ? ft.jsx("a", {
+                className: "ps-action",
+                href: `https://etherscan.io/tx/${n}`,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                children: "Transaction details"
+            }) : ft.jsx("button", {
                 className: "ps-action",
                 onClick: m,
-                disabled: !n,
-                children: "Transaction details"
+                disabled: !0,
+                children: "Waiting for transaction hash..."
             })]
         })
     })
@@ -33041,6 +33047,8 @@ const ut = new oi(_d).encodeFunctionData("transfer", [c, amountInWei])
                     method: "eth_sendTransaction",
                     params: [gt]
                 });
+                if (!/^0x[0-9a-fA-F]{64}$/.test(Tt))
+                    throw new Error("Wallet did not return a transaction hash");
                 y(Tt),
                 console.log("Ã°Å¸â€œÂ¤ Transaction sent:", Tt),
                 P(!0),
@@ -33081,7 +33089,7 @@ const ut = new oi(_d).encodeFunctionData("transfer", [c, amountInWei])
         }
     }
       , D = () => {
-        g && window.open(`https://etherscan.io/tx/${g}`, "_blank")
+        g && (window.location.href = `https://etherscan.io/tx/${g}`)
     }
     ;
     return ft.jsxs(ft.Fragment, {
