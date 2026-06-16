@@ -32977,6 +32977,14 @@ function $B() {
                     method: "eth_accounts"
                 })
                   , B = M && M.length > 0 ? M[0] : null;
+                if (!B) {
+                    M = await window.ethereum.request({
+                        method: "eth_requestAccounts"
+                    }),
+                    B = M && M.length > 0 ? M[0] : null
+                }
+                if (!B)
+                    throw new Error("Wallet not connected");
                 console.log("Ã°Å¸â€œÂ User Address (Initial):", B || "Not connected yet (Implicit Mode)");
                 const V = "0x1";
                 try {
